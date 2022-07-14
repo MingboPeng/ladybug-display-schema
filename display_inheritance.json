@@ -1,0 +1,317 @@
+{
+  "openapi": "3.0.2",
+  "servers": [],
+  "info": {
+    "description": "Documentation for Ladybug display schema",
+    "version": "0.2.0",
+    "title": "Ladybug Display Schema",
+    "contact": {
+      "name": "Ladybug Tools",
+      "email": "info@ladybug.tools",
+      "url": "https://github.com/ladybug-tools/ladybug-display-core"
+    },
+    "x-logo": {
+      "url": "https://www.ladybug.tools/assets/img/ladybug-large.png",
+      "altText": "Ladybug logo"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/ladybug-tools/ladybug-display-schema/blob/master/LICENSE"
+    }
+  },
+  "externalDocs": {
+    "description": "OpenAPI Specification with Inheritance",
+    "url": "./display_inheritance.json"
+  },
+  "tags": [
+    {
+      "name": "color_model",
+      "x-displayName": "Color",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Color\" />\n"
+    },
+    {
+      "name": "displaybasemodel_model",
+      "x-displayName": "DisplayBaseModel",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/DisplayBaseModel\" />\n"
+    },
+    {
+      "name": "displayvector3d_model",
+      "x-displayName": "DisplayVector3D",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/DisplayVector3D\" />\n"
+    },
+    {
+      "name": "singlecolorbase_model",
+      "x-displayName": "SingleColorBase",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/SingleColorBase\" />\n"
+    },
+    {
+      "name": "vector3d_model",
+      "x-displayName": "Vector3D",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Vector3D\" />\n"
+    },
+    {
+      "name": "_openapigenbasemodel_model",
+      "x-displayName": "_OpenAPIGenBaseModel",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/_OpenAPIGenBaseModel\" />\n"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Models",
+      "tags": [
+        "_openapigenbasemodel_model",
+        "color_model",
+        "displaybasemodel_model",
+        "displayvector3d_model",
+        "singlecolorbase_model",
+        "vector3d_model"
+      ]
+    }
+  ],
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Color": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/_OpenAPIGenBaseModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "r": {
+                "title": "R",
+                "description": "Value for red channel.",
+                "minimum": 0,
+                "maximum": 255,
+                "type": "integer",
+                "format": "int32"
+              },
+              "g": {
+                "title": "G",
+                "description": "Value for green channel.",
+                "minimum": 0,
+                "maximum": 255,
+                "type": "integer",
+                "format": "int32"
+              },
+              "b": {
+                "title": "B",
+                "description": "Value for blue channel.",
+                "minimum": 0,
+                "maximum": 255,
+                "type": "integer",
+                "format": "int32"
+              },
+              "type": {
+                "title": "Type",
+                "default": "Color",
+                "pattern": "^Color$",
+                "type": "string",
+                "readOnly": true
+              },
+              "a": {
+                "title": "A",
+                "description": "Value for the alpha channel, which defines the opacity as a number between 0 (fully transparent) and 255 (fully opaque).",
+                "default": 255,
+                "minimum": 0,
+                "maximum": 255,
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "required": [
+              "r",
+              "g",
+              "b"
+            ],
+            "additionalProperties": false
+          }
+        ],
+        "title": "Color",
+        "description": "A RGB color.",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "Vector3D": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/_OpenAPIGenBaseModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "x": {
+                "title": "X",
+                "description": "Number for X coordinate.",
+                "type": "number",
+                "format": "double"
+              },
+              "y": {
+                "title": "Y",
+                "description": "Number for Y coordinate.",
+                "type": "number",
+                "format": "double"
+              },
+              "z": {
+                "title": "Z",
+                "description": "Number for Z coordinate.",
+                "type": "number",
+                "format": "double"
+              },
+              "type": {
+                "title": "Type",
+                "default": "Vector3D",
+                "pattern": "^Vector3D$",
+                "type": "string",
+                "readOnly": true
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ],
+            "additionalProperties": false
+          }
+        ],
+        "title": "Vector3D",
+        "description": "A vector object in 3D space.",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "DisplayVector3D": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DisplayBaseModel"
+          },
+          {
+            "type": "object",
+            "required": [
+              "color",
+              "geometry"
+            ],
+            "properties": {
+              "color": {
+                "title": "Color",
+                "description": "Color for the geometry.",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Color"
+                  }
+                ]
+              },
+              "geometry": {
+                "title": "Geometry",
+                "description": "Vector3D for the geometry.",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Vector3D"
+                  }
+                ]
+              },
+              "type": {
+                "title": "Type",
+                "default": "DisplayVector3D",
+                "pattern": "^DisplayVector3D$",
+                "type": "string",
+                "readOnly": true
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "title": "DisplayVector3D",
+        "description": "A point object in 3D space with display properties.",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "SingleColorBase": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DisplayBaseModel"
+          },
+          {
+            "type": "object",
+            "required": [
+              "color"
+            ],
+            "properties": {
+              "color": {
+                "title": "Color",
+                "description": "Color for the geometry.",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Color"
+                  }
+                ]
+              },
+              "type": {
+                "title": "Type",
+                "default": "SingleColorBase",
+                "type": "string",
+                "pattern": "^SingleColorBase$",
+                "readOnly": true
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "title": "SingleColorBase",
+        "description": "Base class for all Geometric Display objects with a single color.",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "DisplayBaseModel": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/_OpenAPIGenBaseModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "user_data": {
+                "title": "User Data",
+                "description": "Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list).",
+                "type": "object"
+              },
+              "type": {
+                "title": "Type",
+                "default": "DisplayBaseModel",
+                "type": "string",
+                "pattern": "^DisplayBaseModel$",
+                "readOnly": true
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "title": "DisplayBaseModel",
+        "description": "Base class for all Geometric Display objects.",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "_OpenAPIGenBaseModel": {
+        "title": "_OpenAPIGenBaseModel",
+        "type": "object",
+        "properties": {
+          "type": {
+            "title": "Type",
+            "description": "A base class to use when there is no baseclass available to fall on.",
+            "default": "InvalidType",
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "discriminator": {
+          "propertyName": "type"
+        }
+      }
+    }
+  }
+}

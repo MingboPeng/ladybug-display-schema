@@ -1,0 +1,116 @@
+{
+  "openapi": "3.0.2",
+  "servers": [],
+  "info": {
+    "description": "Documentation for Ladybug geometry schema",
+    "version": "0.2.0",
+    "title": "Ladybug Geometry Schema",
+    "contact": {
+      "name": "Ladybug Tools",
+      "email": "info@ladybug.tools",
+      "url": "https://github.com/ladybug-tools/ladybug-display-core"
+    },
+    "x-logo": {
+      "url": "https://www.ladybug.tools/assets/img/ladybug-large.png",
+      "altText": "Ladybug logo"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/ladybug-tools/ladybug-display-schema/blob/master/LICENSE"
+    }
+  },
+  "externalDocs": {
+    "description": "OpenAPI Specification with Inheritance",
+    "url": "./geometry_inheritance.json"
+  },
+  "tags": [
+    {
+      "name": "vector3d_model",
+      "x-displayName": "Vector3D",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Vector3D\" />\n"
+    },
+    {
+      "name": "_openapigenbasemodel_model",
+      "x-displayName": "_OpenAPIGenBaseModel",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/_OpenAPIGenBaseModel\" />\n"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Models",
+      "tags": [
+        "_openapigenbasemodel_model",
+        "vector3d_model"
+      ]
+    }
+  ],
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Vector3D": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/_OpenAPIGenBaseModel"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "x": {
+                "title": "X",
+                "description": "Number for X coordinate.",
+                "type": "number",
+                "format": "double"
+              },
+              "y": {
+                "title": "Y",
+                "description": "Number for Y coordinate.",
+                "type": "number",
+                "format": "double"
+              },
+              "z": {
+                "title": "Z",
+                "description": "Number for Z coordinate.",
+                "type": "number",
+                "format": "double"
+              },
+              "type": {
+                "title": "Type",
+                "default": "Vector3D",
+                "pattern": "^Vector3D$",
+                "type": "string",
+                "readOnly": true
+              }
+            },
+            "required": [
+              "x",
+              "y",
+              "z"
+            ],
+            "additionalProperties": false
+          }
+        ],
+        "title": "Vector3D",
+        "description": "A vector object in 3D space.",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "_OpenAPIGenBaseModel": {
+        "title": "_OpenAPIGenBaseModel",
+        "type": "object",
+        "properties": {
+          "type": {
+            "title": "Type",
+            "description": "A base class to use when there is no baseclass available to fall on.",
+            "default": "InvalidType",
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "discriminator": {
+          "propertyName": "type"
+        }
+      }
+    }
+  }
+}

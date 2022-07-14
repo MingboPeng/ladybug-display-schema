@@ -1,0 +1,6 @@
+{
+  "classes": {
+    "Vector3D": "ladybug_display_schema.geometry3d"
+  },
+  "enums": {}
+}

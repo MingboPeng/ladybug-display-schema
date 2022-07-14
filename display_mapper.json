@@ -1,0 +1,10 @@
+{
+  "classes": {
+    "Color": "ladybug_display_schema.base",
+    "DisplayBaseModel": "ladybug_display_schema.base",
+    "DisplayVector3D": "ladybug_display_schema.display3d",
+    "SingleColorBase": "ladybug_display_schema.base",
+    "Vector3D": "ladybug_display_schema.geometry3d"
+  },
+  "enums": {}
+}

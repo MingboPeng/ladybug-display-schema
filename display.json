@@ -1,0 +1,191 @@
+{
+  "openapi": "3.0.2",
+  "servers": [],
+  "info": {
+    "description": "Ladybug display schema.",
+    "version": "0.2.0",
+    "title": "Ladybug Display Schema",
+    "contact": {
+      "name": "Ladybug Tools",
+      "email": "info@ladybug.tools",
+      "url": "https://github.com/ladybug-tools/ladybug-display-core"
+    },
+    "x-logo": {
+      "url": "https://www.ladybug.tools/assets/img/ladybug-large.png",
+      "altText": "Ladybug logo"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/ladybug-tools/ladybug-display-schema/blob/master/LICENSE"
+    }
+  },
+  "externalDocs": {
+    "description": "OpenAPI Specification with Inheritance",
+    "url": "./display_inheritance.json"
+  },
+  "tags": [
+    {
+      "name": "color_model",
+      "x-displayName": "Color",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Color\" />\n"
+    },
+    {
+      "name": "displayvector3d_model",
+      "x-displayName": "DisplayVector3D",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/DisplayVector3D\" />\n"
+    },
+    {
+      "name": "vector3d_model",
+      "x-displayName": "Vector3D",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Vector3D\" />\n"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Models",
+      "tags": [
+        "color_model",
+        "displayvector3d_model",
+        "vector3d_model"
+      ]
+    }
+  ],
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Color": {
+        "title": "Color",
+        "description": "A RGB color.",
+        "type": "object",
+        "properties": {
+          "r": {
+            "title": "R",
+            "description": "Value for red channel.",
+            "minimum": 0,
+            "maximum": 255,
+            "type": "integer",
+            "format": "int32"
+          },
+          "g": {
+            "title": "G",
+            "description": "Value for green channel.",
+            "minimum": 0,
+            "maximum": 255,
+            "type": "integer",
+            "format": "int32"
+          },
+          "b": {
+            "title": "B",
+            "description": "Value for blue channel.",
+            "minimum": 0,
+            "maximum": 255,
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "title": "Type",
+            "default": "Color",
+            "pattern": "^Color$",
+            "type": "string",
+            "readOnly": true
+          },
+          "a": {
+            "title": "A",
+            "description": "Value for the alpha channel, which defines the opacity as a number between 0 (fully transparent) and 255 (fully opaque).",
+            "default": 255,
+            "minimum": 0,
+            "maximum": 255,
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "required": [
+          "r",
+          "g",
+          "b"
+        ],
+        "additionalProperties": false
+      },
+      "Vector3D": {
+        "title": "Vector3D",
+        "description": "A vector object in 3D space.",
+        "type": "object",
+        "properties": {
+          "x": {
+            "title": "X",
+            "description": "Number for X coordinate.",
+            "type": "number",
+            "format": "double"
+          },
+          "y": {
+            "title": "Y",
+            "description": "Number for Y coordinate.",
+            "type": "number",
+            "format": "double"
+          },
+          "z": {
+            "title": "Z",
+            "description": "Number for Z coordinate.",
+            "type": "number",
+            "format": "double"
+          },
+          "type": {
+            "title": "Type",
+            "default": "Vector3D",
+            "pattern": "^Vector3D$",
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "x",
+          "y",
+          "z"
+        ],
+        "additionalProperties": false
+      },
+      "DisplayVector3D": {
+        "title": "DisplayVector3D",
+        "description": "A point object in 3D space with display properties.",
+        "type": "object",
+        "properties": {
+          "color": {
+            "title": "Color",
+            "description": "Color for the geometry.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Color"
+              }
+            ]
+          },
+          "geometry": {
+            "title": "Geometry",
+            "description": "Vector3D for the geometry.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Vector3D"
+              }
+            ]
+          },
+          "user_data": {
+            "title": "User Data",
+            "description": "Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list).",
+            "type": "object"
+          },
+          "type": {
+            "title": "Type",
+            "default": "DisplayVector3D",
+            "pattern": "^DisplayVector3D$",
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "color",
+          "geometry"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}
